@@ -52,13 +52,15 @@ def draw_board_with_player(player_position_number):
     for i in range(10):
         for j in range(10):
             if (i % 2 == 0):    # If i = 0,2,4,8
-                if (player_position_number != 10*(9-i) + 10-j):
-                    print(str(10*(9-i) + 10-j).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                box_number = 10*(9-i) + 10-j
+                if (player_position_number != box_number):
+                    print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
                 else:
                     print('PPP', end=' ')
             else:
-                if (player_position_number != 10*(9-i) + 1+j):
-                    print(str(10*(9-i) + 1+j).rjust(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
+                box_number = 10*(9-i) + 1+j
+                if (player_position_number != box_number):
+                    print(str(box_number).rjust(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
                 else:
                     print('PPP', end=' ')
         print()     # To go to the next line   
@@ -89,21 +91,6 @@ break!
 '''
 
 
-final_number = 0
-times_dice_rolled = 0
-
-# Following while loop will add the consecutive third time six to the final_number before assigning zero
-while(True):
-    number_on_dice = random.randint(1,6)
-    times_dice_rolled += 1
-    final_number += number_on_dice
-
-    if (number_on_dice != 6) :
-        break
-    elif (times_dice_rolled >= 3):
-        final_number = 0
-        break
-
 # Following while loop will NOT add the consecutive third time six to the final number instead it wil assign zero to the final_number directly
 """
 while(True):
@@ -120,11 +107,55 @@ while(True):
 """
  
     
-draw_board()
-print(final_number)
-draw_board_with_player(final_number)
 
-# Draw board with Player(P) on it at position 'final_number)
+# print(final_number)
+# draw_board_with_player(final_number)
+
+
+def roll_a_dice_loop():
+    times_dice_rolled = 0
+    final_number = 0
+    while(True):
+        number_on_dice = random.randint(1,6)
+        times_dice_rolled += 1
+
+        # Print the number came by rolling dice
+        if times_dice_rolled == 1:
+            print("Number Rolled :  ", number_on_dice)
+        elif times_dice_rolled == 2:
+            print("Second Number Rolled :  ", number_on_dice)
+        else:
+            print("Third Number Rolled :  ", number_on_dice)
+        
+        # Final_number will be total of previous number rolled plus the number rolled this time
+        final_number += number_on_dice
+
+        # If number on dice rolled is 6, loop wil continue to roll the dice next time otherwise break
+        if (number_on_dice != 6) :
+            break
+
+        # if dice rolled 3 times and loop already not broke, that means third number also is 6
+        if (times_dice_rolled >= 3):
+            final_number = 0
+            print("Your Turn vanished!")
+            break
+    return final_number
+
+
+
+draw_board()
+wanna_roll_a_dice = input("Wanna roll the dice (y/n) ? :  ")
+if wanna_roll_a_dice.lower() == 'y':
+    final_number = roll_a_dice_loop()
+    print(f"Player move {final_number} places forward")
+    # Draw board with Player(P) on it at position 'final_number)
+    draw_board_with_player(final_number)
+
+
+
+
+
+
 
 
 '''
