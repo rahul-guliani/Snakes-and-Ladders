@@ -1,0 +1,6 @@
+Draw the board.
+Ask user to roll the device.
+Place the player(PPP) to the box number which came by rolling the dice.
+
+To Draw Ladders
+

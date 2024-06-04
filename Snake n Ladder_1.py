@@ -152,7 +152,7 @@ if wanna_roll_a_dice.lower() == 'y':
     draw_board_with_player(final_number)
 
 
-
+# DRAW LADDERS 
 
 
 
