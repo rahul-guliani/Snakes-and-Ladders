@@ -165,7 +165,7 @@ def roll_dice_and_print_board():
 
 
 def game_finished():
-    print('Player PPP finished the game,')
+    print('Player PPP finished the game.')
 
 
 def play_game():
@@ -174,7 +174,7 @@ def play_game():
         game_start()
 
 def game_start():
-    global play_interrupted
+    global play_interrupted 
     while(True):
         roll_dice_and_print_board()
         

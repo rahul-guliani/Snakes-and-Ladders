@@ -15,11 +15,11 @@ ladder_one_end = []
 ladder_other_end = []
 
 for i in range(number_of_ladders):
-    ladder_one_end.append(random.choice([num for num in list(range(1, 101)) if num not in ladder_one_end and num not in ladder_other_end]))
+    ladder_one_end.append(random.choice([num for num in range(1, 101) if num not in ladder_one_end and num not in ladder_other_end]))
     # ladder_other_end.append(random.choice([num for num in list(range(1, 101)) if num not in ladder_one_end and num not in ladder_other_end]))
 
     # Ladder_one_end and other_end must be on different row of the board
-    ladder_other_end.append(random.choice([num for num in list(range(1, 101)) if num not in ladder_one_end and num not in ladder_other_end and num not in list(range((int(ladder_one_end[i]/10) * 10) + 1,  (int(ladder_one_end[i]/10) * 10) + 11))]))
+    ladder_other_end.append(random.choice([num for num in range(1, 101) if num not in ladder_one_end and num not in ladder_other_end and num not in range((int(ladder_one_end[i]/10) * 10) + 1,  (int(ladder_one_end[i]/10) * 10) + 11)]))
 
 print(ladder_one_end)
 print(ladder_other_end)
@@ -30,9 +30,9 @@ print(ladder_other_end)
 
 # ladder_other_end.append(random.choice([num for num in list(range(1, 101)) if num not in ladder_one_end and num not in ladder_other_end and num not in list(range(int(ladder_one_end[i]/10) * 10) + 1,  (int(ladder_one_end[i]/10) * 10) + 11)]
 
-def remove_occured_numbers(numers_occured):
+# def remove_occured_numbers(numers_occured):
     
 
-for i in range(number_of_ladders):
-    ladder_one_end = (random.choice())
+# for i in range(number_of_ladders):
+#     ladder_one_end = (random.choice())
 
