@@ -1,4 +1,5 @@
 import random
+import draw_ladders as dl
 
 # Draw the Board
 
@@ -41,11 +42,14 @@ def draw_board():
     for i in range(10):
         for j in range(10):
             if (i % 2 == 0):    # If i = 0,2,4,8 
-                print(str(10*(9-i) + 10-j).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                box_number = 10*(9-i) + 10-j
+                print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
             else:
-                print(str(10*(9-i) + 1+j).rjust(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
+                box_number = 10*(9-i) + 1+j
+                print(str(box_number).rjust(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
 
         print()     # To go to the next line   
+
 
 
 def draw_board_with_player(player_position_number):
@@ -53,17 +57,16 @@ def draw_board_with_player(player_position_number):
         for j in range(10):
             if (i % 2 == 0):    # If i = 0,2,4,8
                 box_number = 10*(9-i) + 10-j
-                if (player_position_number != box_number):
-                    print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
-                else:
-                    print('PPP', end=' ')
             else:
                 box_number = 10*(9-i) + 1+j
-                if (player_position_number != box_number):
-                    print(str(box_number).rjust(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
-                else:
-                    print('PPP', end=' ')
+
+            if (player_position_number != box_number):
+                print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+            else:
+                print('PPP', end=' ')
+
         print()     # To go to the next line   
+
 
 
 # Roll the dice
@@ -89,27 +92,6 @@ number = 3     times_dice_rolled = 3    final_number = 15
 break!
 
 '''
-
-
-# Following while loop will NOT add the consecutive third time six to the final number instead it wil assign zero to the final_number directly
-"""
-while(True):
-    number_on_dice = random.randint(1,6)
-    times_dice_rolled += 1
-    if ((times_dice_rolled == 3) and (number_on_dice == 6)):
-        final_number = 0
-        break
-    
-    final_number += number_on_dice
-
-    if (number_on_dice != 6) :
-        break
-"""
- 
-    
-
-# print(final_number)
-# draw_board_with_player(final_number)
 
 
 def roll_a_dice_loop():
@@ -190,7 +172,74 @@ def game_start():
             break
 
 
-draw_board()
-play_game()
+# draw_board()
+# play_game()
 
 
+# ladders_dict = dl.draw_ladders(10)
+# ladder_one_ends = ladders_dict['ladder_one_end']
+# ladder_other_ends = ladders_dict['ladder_other_end']
+# ladders = [(min(ladder_one_ends[i], ladder_other_ends[i]), max(ladder_one_ends[i], ladder_other_ends[i])) for i in range(len(ladder_one_ends))]
+# print(ladders)
+
+# def draw_board_with_ladders(ladders_dict):
+  
+#     for i in range(10):
+#         for j in range(10):
+#             if (i % 2 == 0):    # If i = 0,2,4,8
+#                 box_number = 10*(9-i) + 10-j
+#                 if (box_number not in ladders_dict['ladder_one_end']) and (box_number not in ladders_dict['ladder_other_end']):
+#                     print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                
+#                 elif box_number in ladders_dict['ladder_one_end']:
+#                     one_end_index = ladders_dict['ladder_one_end'].index(box_number)
+#                     print(f"L{one_end_index + 1}".rjust(3), end=' ')    # adding 1 to the index beacause index starts from zero
+
+#                 else:
+#                     other_end_index = ladders_dict['ladder_other_end'].index(box_number)
+#                     print(f"L{other_end_index + 1}".rjust(3), end=' ')
+
+#             else:
+#                 box_number = 10*(9-i) + 1+j
+#                 if (box_number not in ladders_dict['ladder_one_end']) and (box_number not in ladders_dict['ladder_other_end']):
+#                     print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                
+#                 elif box_number in ladders_dict['ladder_one_end']:
+#                     one_end_index = ladders_dict['ladder_one_end'].index(box_number)
+#                     print(f"L{one_end_index + 1}".rjust(3), end=' ')
+
+#                 else:
+#                     other_end_index = ladders_dict['ladder_other_end'].index(box_number)
+#                     print(f"L{other_end_index + 1}".rjust(3), end=' ')
+                   
+#         print()     # To go to the next line   
+
+
+
+def draw_board_with_ladders(ladder_foots, ladder_heads):
+    for i in range(10):
+        for j in range(10):
+            if (i % 2 == 0):    # If i = 0,2,4,8
+                box_number = 10*(9-i) + 10-j
+            else:
+                box_number = 10*(9-i) + 1+j
+
+            if (box_number not in ladder_foots) and (box_number not in ladder_heads):
+                print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+            
+            elif box_number in ladder_foots:
+                ladder_foot_index = ladder_foots.index(box_number)
+                print(f'H{ladder_foot_index + 1}'.rjust(3), end=' ')    # Adding 1 because index starts from zero
+
+            else:
+                ladder_head_index = ladder_heads.index(box_number)
+                print(f'H{ladder_head_index + 1}'.rjust(3), end=' ')
+
+        print()     # To go to the next line   
+
+ladders = dl.draw_ladders(10)
+print(ladders)
+ladder_foots = [ladder[0] for ladder in ladders]    # first element of the each tuple in the list of tuples
+ladder_heads = [ladder[1] for ladder in ladders]    # second element ...
+
+draw_board_with_ladders(ladder_foots, ladder_heads)
