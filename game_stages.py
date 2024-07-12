@@ -3,16 +3,16 @@
 
 
 def game_start(player_position):
-    global play_interrupted 
+    
     while(True):
-        roll_dice_and_print_board()
+        play_interruption = roll_dice_and_print_board()     # function executes 
         
-        if play_interrupted:
+        if play_interruption:
             if (input('wanna exit game (y/n) ? :  ').lower()) == 'y':
                 break
             
             else:
-                play_interrupted = False
+                play_interruption = False
        
         if player_position >= 100:
             game_finished()
@@ -28,7 +28,7 @@ def play_game():
         game_start()
 
 def roll_dice_and_print_board():
-    global play_interrupted
+    play_interruption = False
     roll_a_dice = input("Wanna roll the dice (r) ? :  ")
     if roll_a_dice.lower() == 'r':
         final_number = roll_a_dice_loop()
@@ -41,4 +41,37 @@ def roll_dice_and_print_board():
         draw_board_with_player(player_position)    # Draw board with Player(P) on it at position 'final_number)
 
     else:
-        play_interrupted = True
+        play_interruption = True     # If game interrupted by preesing any key other than 'r'
+
+    return play_interruption  
+
+
+
+def roll_a_dice_loop():
+    times_dice_rolled = 0
+    final_number = 0
+    while(True):
+        number_on_dice = random.randint(1,6)
+        times_dice_rolled += 1
+
+        # Print the number came by rolling dice
+        if times_dice_rolled == 1:
+            print("Number Rolled :  ", number_on_dice)
+        elif times_dice_rolled == 2:
+            print("Second Number Rolled :  ", number_on_dice)
+        else:
+            print("Third Number Rolled :  ", number_on_dice)
+        
+        # Final_number will be total of previous number rolled plus the number rolled this time
+        final_number += number_on_dice
+
+        # If number on dice rolled is 6, loop wil continue to roll the dice next time otherwise break
+        if (number_on_dice != 6) :
+            break
+
+        # if dice rolled 3 times and loop already not broke, that means third number also is 6
+        if (times_dice_rolled >= 3):
+            final_number = 0
+            print("Your Turn vanished!")
+            break
+    return final_number
