@@ -1,12 +1,20 @@
+from board import draw_board_with_player
+import random
 
 
 
-
-def game_start(player_position):
+def game_start():
     
+    player_position = 0
     while(True):
-        play_interruption = roll_dice_and_print_board()     # function executes 
+        # Call the roll_dice_and_print_board() and receives the returned dictionary in a variable 
+        returned_dict = roll_dice_and_print_board(player_position)     # function executes 
+        play_interruption = returned_dict['play_interruption']
+        final_number = returned_dict['final_number']
         
+        # Update the player_position
+        player_position += final_number
+
         if play_interruption:
             if (input('wanna exit game (y/n) ? :  ').lower()) == 'y':
                 break
@@ -27,13 +35,13 @@ def play_game():
     if wanna_play_game.lower() == 'y':
         game_start()
 
-def roll_dice_and_print_board():
+def roll_dice_and_print_board(player_position):
     play_interruption = False
     roll_a_dice = input("Wanna roll the dice (r) ? :  ")
     if roll_a_dice.lower() == 'r':
         final_number = roll_a_dice_loop()
         print(f"Player PPP moves {final_number} {'place' if final_number == 1 else 'places'} forward")
-        global player_position 
+        # global player_position 
         player_position += final_number
         # Update Player position if there is a ladder foot on the current player position
             
@@ -41,9 +49,10 @@ def roll_dice_and_print_board():
         draw_board_with_player(player_position)    # Draw board with Player(P) on it at position 'final_number)
 
     else:
-        play_interruption = True     # If game interrupted by preesing any key other than 'r'
+        play_interruption = True     # If game interrupted by preesing any key other than 'r' or 'R'
+        final_number = 0             # If game is interrupted, final number rolled is 0 
 
-    return play_interruption  
+    return {'play_interruption': play_interruption, 'final_number': final_number}  
 
 
 
