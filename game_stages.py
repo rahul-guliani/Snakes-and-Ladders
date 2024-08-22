@@ -1,19 +1,22 @@
-from board import draw_board_with_player
+from board import draw_board_with_ladders_and_player
+from draw_ladders import draw_ladders
 import random
 
 
 
 def game_start():
+
+    ladders = draw_ladders(10)
     
     player_position = 0
     while(True):
         # Call the roll_dice_and_print_board() and receives the returned dictionary in a variable 
-        returned_dict = roll_dice_and_print_board(player_position)     # function executes 
+        returned_dict = roll_dice_and_print_board(player_position, ladders)     # function executes 
         play_interruption = returned_dict['play_interruption']
-        final_number = returned_dict['final_number']
+        player_position = returned_dict['player_position']
         
         # Update the player_position
-        player_position += final_number
+        # player_position += final_number
 
         if play_interruption:
             if (input('wanna exit game (y/n) ? :  ').lower()) == 'y':
@@ -35,24 +38,32 @@ def play_game():
     if wanna_play_game.lower() == 'y':
         game_start()
 
-def roll_dice_and_print_board(player_position):
+def roll_dice_and_print_board(player_position, ladders):
+
+    ladder_foots = [ladder[0] for ladder in ladders]    # first element of the each tuple in the list of tuples
+    ladder_heads = [ladder[1] for ladder in ladders]    # second element ...
+
     play_interruption = False
     roll_a_dice = input("Wanna roll the dice (r) ? :  ")
     if roll_a_dice.lower() == 'r':
         final_number = roll_a_dice_loop()
-        print(f"Player PPP moves {final_number} {'place' if final_number == 1 else 'places'} forward")
         # global player_position 
         player_position += final_number
-        # Update Player position if there is a ladder foot on the current player position
-            
-        # player_position = ladder_heads[ladder_heads.index(player_position)] if player_position in ladder_foots
-        draw_board_with_player(player_position)    # Draw board with Player(P) on it at position 'final_number)
+        print(f"Player PPP moves {final_number} {'place' if final_number == 1 else 'places'} forward to box-number: {player_position}")
+
+    
+        # Update Player position if there is a ladder foot on the current player position 
+        if player_position in ladder_foots:
+            player_position = ladder_heads[ladder_foots.index(player_position)]   # head at same index where foot is
+            print(f"your player is on a ladder's foot, so we are moving it to its head that is box-number: {player_position}")
+
+        draw_board_with_ladders_and_player(ladders, player_position)    # Draw board with Player(P) on it at position 'player_position')
 
     else:
         play_interruption = True     # If game interrupted by preesing any key other than 'r' or 'R'
         final_number = 0             # If game is interrupted, final number rolled is 0 
 
-    return {'play_interruption': play_interruption, 'final_number': final_number}  
+    return {'play_interruption': play_interruption, 'player_position': player_position}  
 
 
 
