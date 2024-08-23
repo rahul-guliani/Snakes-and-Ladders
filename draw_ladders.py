@@ -10,10 +10,15 @@ import random
 
 
 
-def draw_ladders(number_of_ladders):
+def draw_ladders_and_snakes(number_of_ladders, numbers_of_snakes):
     ladder_foots = []
     ladder_heads = []
 
+    snake_tails = []
+    snake_heads = []
+
+    # To calculate the minimum value the Ladder's head or Snake's foot can have
+    # That is the from any value from the next row where the ladder's foot is or snake's tail is 
     def calculate_threshold(value):
         base_value = int(value / 10) * 10
         return base_value + 10 if value % 10 != 0 else value
@@ -43,7 +48,38 @@ def draw_ladders(number_of_ladders):
     
     
     ladders = [(ladder_foots[i], ladder_heads[i]) for i in range(len(ladder_foots))]
-    return ladders
+
+    # For total no. of snakes
+    for i in range(numbers_of_snakes):
+
+        # For snake's tail
+        choices = [
+            num
+            for num in range(1, 91)
+            if num not in snake_tails and 
+            num not in snake_heads and
+            num not in ladder_foots and
+            num not in ladder_heads
+        ]
+        snake_tail = random.choice(choices)
+        snake_tails.append(snake_tail)
+
+        # For snake's head
+        choices = [
+            num 
+            for num in range(11, 100)
+            if num not in snake_tails and 
+            num not in snake_heads and
+            num not in ladder_foots and
+            num not in ladder_heads and
+            num > calculate_threshold(snake_tail)
+        ]
+        snake_head = random.choice(choices)
+        snake_heads.append(snake_head)
+    
+    snakes = [(snake_tails[i], snake_heads[i]) for i in range(len(snake_tails))]
+
+    return {'snakes': snakes, 'ladders': ladders}
 
 
 # Ladder_one_end and other_end must have a minimum difference of 2
