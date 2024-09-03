@@ -40,10 +40,10 @@ def draw_board():
         for j in range(10):
             if (i % 2 == 0):    # If i = 0,2,4,8 
                 box_number = 10*(9-i) + 10-j
-                print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                print(str(box_number).center(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
             else:
                 box_number = 10*(9-i) + 1+j
-                print(str(box_number).rjust(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
+                print(str(box_number).center(3), end=' ')     # Add number in ascending order (1 to 10) to 10 times the number of row
 
         print()     # To go to the next line   
 
@@ -57,7 +57,7 @@ def draw_board_with_player(player_position):
                 box_number = 10*(9-i) + 1+j
 
             if (player_position != box_number):
-                print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                print(str(box_number).center(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
             else:
                 print('PPP', end=' ')
 
@@ -101,15 +101,15 @@ def draw_board_with_ladders(ladders):
                 box_number = 10*(9-i) + 1+j
 
             if (box_number not in ladder_foots) and (box_number not in ladder_heads):
-                print(str(box_number).rjust(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                print(str(box_number).center(3), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
             
             elif box_number in ladder_foots:
                 ladder_foot_index = ladder_foots.index(box_number)
-                print(f'H{ladder_foot_index + 1}'.rjust(3), end=' ')    # Adding 1 because index starts from zero
+                print(f'H{ladder_foot_index + 1}'.center(3), end=' ')    # Adding 1 because index starts from zero
 
             else:
                 ladder_head_index = ladder_heads.index(box_number)
-                print(f'H{ladder_head_index + 1}'.rjust(3), end=' ')
+                print(f'H{ladder_head_index + 1}'.center(3), end=' ')
 
         print()     # To go to the next line   
 
@@ -135,32 +135,32 @@ def draw_board_with_ladders_and_players(ladders, snakes, player_1_position, play
                 (box_number not in snake_heads) and \
                 (box_number != player_1_position) and \
                 (box_number != player_2_position):
-                print(str(box_number).rjust(5), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+                print(str(box_number).center(6), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
 
             # Print ladder_foot with its index
             elif box_number in ladder_foots:
                 ladder_foot_index = ladder_foots.index(box_number)
-                print(f'H{ladder_foot_index + 1}'.rjust(5), end=' ')    # Adding 1 because index starts from zero
+                print(f'H{ladder_foot_index + 1}'.center(6), end=' ')    # Adding 1 because index starts from zero
 
             # Print ladder_head and ladder_head with player if they are at same position
             elif box_number in ladder_heads:
                 ladder_head_index = ladder_heads.index(box_number)
                 if box_number == player_1_position:
-                    print(f'H{ladder_head_index + 1}P1'.rjust(5), end=' ')
+                    print(f'H{ladder_head_index + 1} P1'.center(6), end=' ')
                 elif box_number == player_2_position:
-                    print(f'H{ladder_head_index + 1}P2'.rjust(5), end=' ')
+                    print(f'H{ladder_head_index + 1} P2'.center(6), end=' ')
                 else:
-                    print(f'H{ladder_head_index + 1}'.rjust(5), end=' ')
+                    print(f'H{ladder_head_index + 1}'.center(6), end=' ')
 
             # Print snake_tail and snake_tail with player if they are at same position
             elif box_number in snake_tails:
                 snake_tail_index = snake_tails.index(box_number)
                 if box_number == player_1_position:
-                    print(f"S{snake_tail_index + 1}P1".rjust(5), end=' ')
+                    print(f"S{snake_tail_index + 1} P1".center(6), end=' ')
                 elif box_number == player_2_position:
-                    print(f"S{snake_tail_index + 1}P2".rjust(5), end=' ')
+                    print(f"S{snake_tail_index + 1} P2".center(6), end=' ')
                 else:
-                    print(f"S{snake_tail_index + 1}".rjust(5), end=' ')
+                    print(f"S{snake_tail_index + 1}".center(6), end=' ')
 
             # Print snake_head with its index
             # Why we are not checking the player's position for snake's head and ladder's foot
@@ -168,14 +168,14 @@ def draw_board_with_ladders_and_players(ladders, snakes, player_1_position, play
             # keep player there
             elif box_number in snake_heads:
                 snake_head_index = snake_heads.index(box_number)
-                print(f"S{snake_head_index + 1}".rjust(5), end=' ')
+                print(f"S{snake_head_index + 1}".center(6), end=' ')
 
             # Print player if it is the only one on the box_number
             elif box_number == player_1_position:
-                print(f'P1'.rjust(5), end=' ')
+                print(f'P1'.center(6), end=' ')
 
             else:
-                print(f'P2'.rjust(5), end=' ')
+                print(f'P2'.center(6), end=' ')
 
 
         print()
