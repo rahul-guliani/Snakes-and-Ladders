@@ -128,34 +128,26 @@ def draw_board_with_ladders_and_player(ladders, snakes, player_position):
             else:
                 box_number = 10*(9-i) + 1+j
 
-            # Print box number
-            if (box_number not in ladder_foots) and \
-                (box_number not in ladder_heads) and \
-                (box_number not in snake_tails) and \
-                (box_number not in snake_heads) and \
-                (box_number != player_position):
-                print(str(box_number).rjust(4), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
-
             # Print ladder_foot with its index
-            elif box_number in ladder_foots:
+            if box_number in ladder_foots:
                 ladder_foot_index = ladder_foots.index(box_number)
-                print(f'H{ladder_foot_index + 1}'.rjust(4), end=' ')    # Adding 1 because index starts from zero
+                print(f'H{ladder_foot_index + 1}'.center(6), end=' ')    # Adding 1 because index starts from zero
 
             # Print ladder_head and ladder_head with player if they are at same position
             elif box_number in ladder_heads:
                 ladder_head_index = ladder_heads.index(box_number)
                 if box_number == player_position:
-                    print(f'H{ladder_head_index + 1}P'.rjust(4), end=' ')
+                    print(f'H{ladder_head_index + 1}P'.center(6), end=' ')
                 else:
-                    print(f'H{ladder_head_index + 1}'.rjust(4), end=' ')
+                    print(f'H{ladder_head_index + 1}'.center(6), end=' ')
 
             # Print snake_tail and snake_tail with player if they are at same position
             elif box_number in snake_tails:
                 snake_tail_index = snake_tails.index(box_number)
                 if box_number == player_position:
-                    print(f"S{snake_tail_index + 1}P".rjust(4), end=' ')
+                    print(f"S{snake_tail_index + 1}P".center(6), end=' ')
                 else:
-                    print(f"S{snake_tail_index + 1}".rjust(4), end=' ')
+                    print(f"S{snake_tail_index + 1}".center(6), end=' ')
 
             # Print snake_head with its index
             # Why we are not checking the player's position for snake's head and ladder's foot
@@ -163,10 +155,21 @@ def draw_board_with_ladders_and_player(ladders, snakes, player_position):
             # keep player there
             elif box_number in snake_heads:
                 snake_head_index = snake_heads.index(box_number)
-                print(f"S{snake_head_index + 1}".rjust(4), end=' ')
+                print(f"S{snake_head_index + 1}".center(6), end=' ')
 
             # Print player if it is the only one on the box_number
-            else:
-                print(f'P'.rjust(4), end=' ')
+            elif box_number == player_position:
+                print(f'P'.center(6), end=' ')
 
         print()
+        for j in range(10):
+
+            if (i % 2 == 0):    # If i = 0,2,4,8
+                box_number = 10*(9-i) + 10-j
+            else:
+                box_number = 10*(9-i) + 1+j
+
+            # Print box number
+            print(str(box_number).center(6), end=' ')  # Add number in decending order (10 to 1) for alternative row starting from first row 
+
+        print('\n')
